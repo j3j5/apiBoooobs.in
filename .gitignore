@@ -40,3 +40,4 @@ publish
 # Config files to ignore
 application/config/application.php
 application/config/database.php
+bundles/oneauth/api.php
