@@ -31,11 +31,9 @@
 |		});
 |
 */
-
-Route::get('/', function()
-{
-	return View::make('home.index');
-});
+Route::controller('oneauth::connect');
+// Route::controller(Controller::detect('oneauth'));
+Route::get('/', 'home@index');
 
 /*
 |--------------------------------------------------------------------------
