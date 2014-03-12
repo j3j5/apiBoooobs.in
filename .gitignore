@@ -36,3 +36,7 @@ dwsync.xml
 intermediate
 publish
 .idea
+
+# Config files to ignore
+application/config/application.php
+application/config/database.php
