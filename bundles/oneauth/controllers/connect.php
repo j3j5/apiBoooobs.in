@@ -26,6 +26,11 @@ class Oneauth_Connect_Controller extends OneAuth\Auth\Controller {
 
 		$user->save();
 		Event::fire('oneauth.sync', array($user->id));
+		$login = array(
+			'username' => $this->user_data['info']['nickname'],
+			'password' => $this->pass
+		);
+		$result = Auth::attempt($login);
 		return OneAuth\Auth\Core::redirect('registered')->with('flash_notice', "You've been properly registered."); // redirect to /home
 	}
 
@@ -59,6 +64,7 @@ class Oneauth_Connect_Controller extends OneAuth\Auth\Controller {
 	protected function action_logout() {
 		// Log out
 		Auth::logout();
+		Session::forget('oneauth');
 		return Redirect::to('/')->with('flash_notice', "You've been logged out!");
 	}
 
