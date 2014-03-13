@@ -16,6 +16,8 @@ class Create_Users_Table {
 			$t->string('oauth-token', 255);
 			$t->string('oauth-secret', 255);
 			$t->timestamps();
+
+			$t->index('username');
 		});
 	}
 
