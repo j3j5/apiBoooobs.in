@@ -82,13 +82,13 @@ class Oneauth_Connect_Controller extends OneAuth\Auth\Controller {
 	private function get_client_info() {
 		$this->user_data = Session::get('oneauth');
 		if(empty($this->user_data)) {
-			return Redirect::to('/')->with('flash_notice', "Could not logged you in.");
+			return Redirect::to('/')->with('flash_notice', "Could not logged you in. Session not found.");
 		}
 		$this->client = Client::where('provider', '=', $this->user_data['provider'])
 						->where('uid', '=', $this->user_data['info']['uid'])
 						->first();
 		if(empty($this->client)) {
-			return Redirect::to('/')->with('flash_notice', "Could not logged you in.");
+			return Redirect::to('/')->with('flash_notice', "Could not logged you in. Client not found.");
 		}
 		$this->pass = md5($this->client->access_token . $this->client->secret . Config::get('application::key'));
 		return TRUE;
