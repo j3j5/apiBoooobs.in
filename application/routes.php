@@ -31,9 +31,10 @@
 |		});
 |
 */
-Route::controller('oneauth::connect');
-// Route::controller(Controller::detect('oneauth'));
+
 Route::get('/', 'home@index');
+Route::controller('ajax');
+Route::controller('oneauth::connect');
 
 /*
 |--------------------------------------------------------------------------
@@ -103,6 +104,21 @@ Route::filter('csrf', function()
 {
 	if (Request::forged()) return Response::error('500');
 });
+
+Route::filter('headers', function()
+{
+	echo debug(getallheaders());
+});
+
+Route::filter('api', function()
+{
+	$apikey = Input::get('apikey');
+	if(empty($apikey)) {
+		return Response::json(array('code' => 401, 'message' => 'You must get a valid API key to use this endpoint.'));
+	}
+	///TODO: implement API validation
+});
+
 
 Route::filter('auth', function()
 {
