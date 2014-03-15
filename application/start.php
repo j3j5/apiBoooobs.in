@@ -171,3 +171,24 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 {
 	Session::load();
 }
+
+function debug($var = '', $exit = FALSE) {
+	$calledFrom =  debug_backtrace();
+	echo '<strong>' . str_replace('/webservers/', '/', $calledFrom[0]['file']) . '</strong>';
+	echo ' (line <strong>' . $calledFrom[0]['line'] . '</strong>)';
+
+
+
+	echo "\n<pre class=\"debug\">\n";
+	if(is_object($var) || is_array($var)){
+		$var = print_r($var, true);
+		//$var = var_dump($var);
+	}
+	elseif(func_get_args()){
+		$var = var_dump($var);
+	}
+	echo $var . "\n</pre>\n";
+	if($exit) {
+		exit;
+	}
+}
